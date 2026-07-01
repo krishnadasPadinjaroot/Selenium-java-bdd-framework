@@ -34,7 +34,7 @@ public class ProductsPage extends CommonActions {
     WebElement sortDropdown;
 
     // Cart
-    @FindBy(xpath = "//a[@class='shopping_cart_link']")
+    @FindBy(xpath = "//a[@class='shopping_cart_link']/span")
     WebElement shoppingCartLink;
 
     @FindBy(id = "checkout")
