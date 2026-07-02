@@ -13,12 +13,15 @@ import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CommonActions {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected Actions actions;
+    private static final Logger logger = LogManager.getLogger(CommonActions.class);
 
     public CommonActions() {
         driver = BaseTest.driver;
@@ -31,21 +34,28 @@ public class CommonActions {
        ========================= */
 
     public void click(WebElement element) {
+        logger.info("Clicking on element: {}", element);
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        logger.info("Element clicked successfully.");
     }
 
     public void enterText(WebElement element, String text) {
+        logger.info("Entering text");
         wait.until(ExpectedConditions.visibilityOf(element));
         element.clear();
         element.sendKeys(text);
     }
 
+
+
     public void clearText(WebElement element) {
+        logger.info("Clearing text");
         wait.until(ExpectedConditions.visibilityOf(element));
         element.clear();
     }
 
     public String getText(WebElement element) {
+        logger.info("Getting text");
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();
     }
 
@@ -101,15 +111,19 @@ public class CommonActions {
        ========================= */
 
     public void hover(WebElement element) {
+        logger.info("Hovering over element");
         waitForVisibility(element);
         actions.moveToElement(element).perform();
     }
 
     public void doubleClick(WebElement element) {
+        logger.info("Double click");
+
         actions.doubleClick(element).perform();
     }
 
     public void rightClick(WebElement element) {
+        logger.info("Right click");
         actions.contextClick(element).perform();
     }
 
@@ -242,7 +256,7 @@ public class CommonActions {
 
     public void switchToParentFrame() {
         driver.switchTo().parentFrame();
-        
+
     }
 
     public void switchToDefaultContent() {

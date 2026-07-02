@@ -6,52 +6,66 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import utilities.AllureUtil;
 
-
 public class Hooks {
+
+    private static final Logger logger = LogManager.getLogger(Hooks.class);
 
     /**
      * Executes before every scenario.
      * Launches the browser and opens the application.
      */
     @Before
-    public void beforeScenario() {
+    public void beforeScenario(Scenario scenario) {
+
+        logger.info("====================================================");
+        logger.info("Starting Scenario: {}", scenario.getName());
+        logger.info("====================================================");
 
         BaseTest.launchBrowser();
-
     }
 
     /**
      * Executes after every scenario.
-     * 1. Captures screenshot if the scenario fails.
-     * 2. Closes the browser irrespective of test result.
+     * Captures screenshot on failure and closes the browser.
      */
     @After
     public void afterScenario(Scenario scenario) {
 
         try {
 
-            // Check whether the current scenario has failed
             if (scenario.isFailed()) {
 
-                // Capture screenshot as byte array
+                logger.error("Scenario FAILED: {}", scenario.getName());
+
                 byte[] screenshot = ((TakesScreenshot) BaseTest.driver)
                         .getScreenshotAs(OutputType.BYTES);
 
-                // Attach screenshot to Allure Report
                 AllureUtil.attachScreenshot(screenshot);
 
+                logger.info("Failure screenshot attached to Allure report.");
+
+            } else {
+
+                logger.info("Scenario PASSED: {}", scenario.getName());
             }
+
+        } catch (Exception e) {
+
+            logger.error("Error occurred during scenario teardown.", e);
 
         } finally {
 
-            // Always close the browser
-            // finally block ensures cleanup even if an exception occurs
+            logger.info("Closing browser.");
+
             BaseTest.closeBrowser();
 
+            logger.info("Browser closed successfully.");
+            logger.info("Finished Scenario: {}", scenario.getName());
+            logger.info("====================================================");
         }
-
     }
-
 }

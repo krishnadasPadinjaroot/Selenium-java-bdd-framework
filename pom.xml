@@ -24,8 +24,7 @@
         <allure.version>2.29.1</allure.version>
 
         <!-- Logging -->
-        <slf4j.version>2.0.17</slf4j.version>
-        <logback.version>1.5.18</logback.version>
+        <log4j2.version>2.24.3</log4j2.version>
 
     </properties>
 
@@ -74,18 +73,25 @@
             <version>${allure.version}</version>
         </dependency>
 
-        <!-- SLF4J -->
+        <!-- Log4j2 API -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2.version}</version>
         </dependency>
 
-        <!-- Logback -->
+        <!-- Log4j2 Core -->
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <!-- Bridge SLF4J to Log4j2 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <version>${log4j2.version}</version>
         </dependency>
 
     </dependencies>
@@ -109,6 +115,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
+
                 <configuration>
 
                     <argLine>-Dfile.encoding=UTF-8</argLine>
@@ -120,6 +127,7 @@
                     </systemPropertyVariables>
 
                 </configuration>
+
             </plugin>
 
             <!-- Allure Maven Plugin -->
