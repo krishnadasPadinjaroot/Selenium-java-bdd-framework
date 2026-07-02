@@ -228,16 +228,26 @@ public class CommonActions {
        ========================= */
 
     public void switchToFrame(WebElement frameElement) {
+
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameElement));
     }
 
-    public void switchToFrame(int index) { driver.switchTo().frame(index); }
+    public void switchToFrame(int index) {
+        driver.switchTo().frame(index);
+    }
 
-    public void switchToFrame(String nameOrId) { driver.switchTo().frame(nameOrId); }
+    public void switchToFrame(String nameOrId) {
+        driver.switchTo().frame(nameOrId);
+    }
 
-    public void switchToParentFrame() { driver.switchTo().parentFrame(); }
+    public void switchToParentFrame() {
+        driver.switchTo().parentFrame();
+        
+    }
 
-    public void switchToDefaultContent() { driver.switchTo().defaultContent(); }
+    public void switchToDefaultContent() {
+        driver.switchTo().defaultContent();
+    }
 
     /* =========================
        WINDOW METHODS
