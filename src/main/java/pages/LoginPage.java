@@ -46,7 +46,7 @@ public class LoginPage extends CommonActions {
      */
     public void openSite() {
 
-        driver.get(url);
+        navigateTo(url);
 
     }
 
