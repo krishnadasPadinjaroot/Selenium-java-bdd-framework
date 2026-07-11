@@ -3,7 +3,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -12,7 +12,6 @@
     <version>1.0.0</version>
 
     <properties>
-
         <!-- Java -->
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,7 +24,6 @@
 
         <!-- Logging -->
         <log4j2.version>2.24.3</log4j2.version>
-
     </properties>
 
     <dependencies>
@@ -45,49 +43,45 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Cucumber Java -->
+        <!-- Cucumber -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber.version}</version>
         </dependency>
 
-        <!-- Cucumber TestNG -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-testng</artifactId>
             <version>${cucumber.version}</version>
         </dependency>
 
-        <!-- Allure TestNG -->
+        <!-- Allure -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
         </dependency>
 
-        <!-- Allure Cucumber -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber7-jvm</artifactId>
             <version>${allure.version}</version>
         </dependency>
 
-        <!-- Log4j2 API -->
+        <!-- Log4j2 -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${log4j2.version}</version>
         </dependency>
 
-        <!-- Log4j2 Core -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j2.version}</version>
         </dependency>
 
-        <!-- Bridge SLF4J to Log4j2 -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
@@ -97,7 +91,6 @@
     </dependencies>
 
     <build>
-
         <plugins>
 
             <!-- Java Compiler -->
@@ -118,16 +111,24 @@
 
                 <configuration>
 
+                    <!-- TestNG Suite -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+
+                    <!-- Parallel Execution -->
+                    <parallel>methods</parallel>
+                    <threadCount>5</threadCount>
+
+                    <!-- JVM Arguments -->
                     <argLine>-Dfile.encoding=UTF-8</argLine>
 
+                    <!-- Allure Results -->
                     <systemPropertyVariables>
-                        <allure.results.directory>
-                            target/allure-results
-                        </allure.results.directory>
+                        <allure.results.directory>target/allure-results</allure.results.directory>
                     </systemPropertyVariables>
 
                 </configuration>
-
             </plugin>
 
             <!-- Allure Maven Plugin -->
@@ -138,7 +139,6 @@
             </plugin>
 
         </plugins>
-
     </build>
 
 </project>

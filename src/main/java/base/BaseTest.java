@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.Duration;
 
-public class BaseTest {
+public abstract  class BaseTest {
 
     public static WebDriver driver;
 
@@ -66,7 +66,7 @@ public class BaseTest {
 
         } catch (Exception e) {
 
-            logger.error("Failed to launch browser.", e);
+            logger.error("Failed to launch browser '{}'.", browserName, e);
             throw e;
         }
     }
@@ -91,6 +91,9 @@ public class BaseTest {
             driver = null;
 
             logger.info("Browser closed successfully.");
+        } else {
+
+            logger.warn("Driver instance is already null.");
         }
     }
 }
