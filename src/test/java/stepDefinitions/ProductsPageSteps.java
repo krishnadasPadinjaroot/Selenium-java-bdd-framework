@@ -48,7 +48,7 @@ public class ProductsPageSteps {
     @Then("user verify success message")
     public void verifySuccessMessage() {
         String ActualSuccessMessage= productsPage.getSuccessMessage();
-        Assert.assertEquals(ActualSuccessMessage,"Thank you for your order!");
+        Assert.assertEquals(ActualSuccessMessage,"Thank you for your order!1");
 
     }
 
