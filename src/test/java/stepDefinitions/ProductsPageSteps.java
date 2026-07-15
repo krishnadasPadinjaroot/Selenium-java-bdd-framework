@@ -14,14 +14,11 @@ public class ProductsPageSteps {
 
     @When("user add products to cart")
     public void addProductsToCart() {
-
         productsPage.addProductsToCart();
-
     }
 
     @And("user navigate to cart page")
     public void navigateToCartPage() {
-
         productsPage.navigateToCartPage();
 
     }
