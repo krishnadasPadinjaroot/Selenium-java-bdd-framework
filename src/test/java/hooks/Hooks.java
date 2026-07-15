@@ -41,31 +41,26 @@ public class Hooks {
 
                 logger.error("Scenario FAILED: {}", scenario.getName());
 
-                byte[] screenshot = ((TakesScreenshot) BaseTest.driver)
+                byte[] screenshot = ((TakesScreenshot) BaseTest.getDriver())
                         .getScreenshotAs(OutputType.BYTES);
 
-                AllureUtil.attachScreenshot(screenshot);
+                // Attach to Cucumber Scenario to Allure report
+                scenario.attach(
+                        screenshot,
+                        "image/png",
+                        "Failure Screenshot"
+                );
 
-                logger.info("Failure screenshot attached to Allure report.");
+                logger.info("Failure screenshot attached.");
 
             } else {
 
                 logger.info("Scenario PASSED: {}", scenario.getName());
             }
 
-        } catch (Exception e) {
-
-            logger.error("Error occurred during scenario teardown.", e);
-
         } finally {
 
-            logger.info("Closing browser.");
-
             BaseTest.closeBrowser();
-
-            logger.info("Browser closed successfully.");
-            logger.info("Finished Scenario: {}", scenario.getName());
-            logger.info("====================================================");
         }
     }
 }
