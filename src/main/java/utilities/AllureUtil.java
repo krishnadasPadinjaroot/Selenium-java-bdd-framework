@@ -1,18 +1,11 @@
 package utilities;
 
-import io.qameta.allure.Allure;
-
-import java.io.ByteArrayInputStream;
+import io.qameta.allure.Attachment;
 
 public class AllureUtil {
 
-    public static void attachScreenshot(byte[] screenshot) {
-
-        // Add screenshot to the Allure report
-        Allure.addAttachment(
-                "Failure Screenshot",
-                "image/png",
-                new ByteArrayInputStream(screenshot),
-                ".png");
+    @Attachment(value = "Failure Screenshot", type = "image/png")
+    public static byte[] attachScreenshot(byte[] screenshot) {
+        return screenshot;
     }
 }
