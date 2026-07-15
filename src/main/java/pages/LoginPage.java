@@ -1,74 +1,52 @@
 package pages;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.By;
 import utilities.CommonActions;
 import utilities.ConfigReader;
 
 public class LoginPage extends CommonActions {
 
     // Read values from config.properties
-    String Username = ConfigReader.getProperty("username");
-    String Password = ConfigReader.getProperty("password");
-    String url = ConfigReader.getProperty("url");
+    private final String url = ConfigReader.getProperty("url");
+    private final String username = ConfigReader.getProperty("username");
+    private final String password = ConfigReader.getProperty("password");
+
+    // Locators
+    private final By usernameTxt = By.xpath("//input[@placeholder='Username']");
+    private final By passwordTxt = By.xpath("//input[@placeholder='Password']");
+    private final By loginBtn = By.id("login-button");
+    private final By menuBtn = By.xpath("//*[text()='Open Menu']");
+    private final By logoutLink = By.xpath("//*[text()='Logout']");
 
     /**
-     * Constructor
-     * Initializes all @FindBy WebElements
-     */
-    public LoginPage() {
-        PageFactory.initElements(driver, this);
-    }
-
-    // Username Text Field
-    @FindBy(xpath = "//input[@placeholder='Username']")
-    WebElement usernameInputTextField;
-
-    // Password Text Field
-    @FindBy(xpath = "//input[@placeholder='Password']")
-    WebElement passwordInputTextField;
-
-    // Login Button
-    @FindBy(id = "login-button")
-    WebElement loginButton;
-
-    // Burger Menu Button
-    @FindBy(xpath = "//*[text()='Open Menu']")
-    WebElement burgerMenuBtn;
-
-    // Logout Link
-    @FindBy(xpath = "//*[text()='Logout']")
-    WebElement logOutLink;
-
-    /**
-     * Opens the application URL.
+     * Opens application
      */
     public void openSite() {
-
         navigateTo(url);
-
     }
 
     /**
-     * Logs into the application.
+     * Login using parameters
      */
-    public void login(String username, String password) {
-
-        enterText(usernameInputTextField, username);
-        enterText(passwordInputTextField, password);
-        click(loginButton);
-
+    public void login(String userName, String passWord) {
+        enterText(usernameTxt, userName);
+        enterText(passwordTxt, passWord);
+        click(loginBtn);
     }
 
     /**
-     * Logs out from the application.
+     * Login using credentials from config.properties
      */
-    public void userLogOut() {
+    public void login() {
+        login(username, password);
+    }
 
-        click(burgerMenuBtn);
-        click(logOutLink);
-
+    /**
+     * Logout
+     */
+    public void userLog0ut() {
+        click(menuBtn);
+        click(logoutLink);
     }
 
 }

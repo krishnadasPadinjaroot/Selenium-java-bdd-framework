@@ -1,24 +1,22 @@
 package pages;
 
-import base.BaseTest;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.By;
 import utilities.CommonActions;
 
 public class AvailableExamplesPage extends CommonActions {
 
-    public AvailableExamplesPage() {
-        PageFactory.initElements(BaseTest.driver, this);
-    }
+    /* =========================
+       LOCATORS
+       ========================= */
 
-    // A/B Testing Link
-    @FindBy(linkText = "A/B Testing")
-    WebElement lnkABTesting;
+    private final By lnkABTesting = By.linkText("A/B Testing");
 
-    // Variation Text
-    @FindBy(xpath = "//div[@class='example']/p")
-    WebElement txtVariationMessage;
+    private final By txtVariationMessage =
+            By.xpath("//div[@class='example']/p");
+
+    /* =========================
+       PAGE ACTIONS
+       ========================= */
 
     /**
      * Click on A/B Testing link
@@ -30,7 +28,7 @@ public class AvailableExamplesPage extends CommonActions {
     /**
      * Get the variation message
      */
-    public String getTextAorBTestVariation1Text() {
+    public String getTextAorBTestVariationText() {
         return getText(txtVariationMessage);
     }
 }

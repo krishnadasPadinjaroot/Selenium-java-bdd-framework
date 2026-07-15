@@ -1,155 +1,122 @@
 package pages;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.By;
 import utilities.CommonActions;
 import utilities.ConfigReader;
 
 public class ProductsPage extends CommonActions {
 
-    String firstname = ConfigReader.getProperty("firstname");
-    String lastname = ConfigReader.getProperty("lastname");
-    String zipCode = ConfigReader.getProperty("Zipcode");
+    private final String firstName = ConfigReader.getProperty("firstname");
+    private final String lastName = ConfigReader.getProperty("lastname");
+    private final String zipCode = ConfigReader.getProperty("Zipcode");
 
-    public ProductsPage() {
-        PageFactory.initElements(driver, this);
-    }
+    /* =========================
+       PRODUCT LOCATORS
+       ========================= */
 
-    // Products
-    @FindBy(id = "add-to-cart-sauce-labs-backpack")
-    WebElement addToCartSauceLabsBackpack;
+    private final By backpackBtn =
+            By.id("add-to-cart-sauce-labs-backpack");
 
-    @FindBy(id = "add-to-cart-sauce-labs-bike-light")
-    WebElement addToCartSauceLabsBikeLight;
+    private final By bikeLightBtn =
+            By.id("add-to-cart-sauce-labs-bike-light");
 
-    @FindBy(id = "add-to-cart-sauce-labs-bolt-t-shirt")
-    WebElement addToCartSauceLabsBolt_t_Shirt;
+    private final By boltTShirtBtn =
+            By.id("add-to-cart-sauce-labs-bolt-t-shirt");
 
-    @FindBy(id = "add-to-cart-test.allthethings()-t-shirt-(red)")
-    WebElement addToCartSauceLabsTestAllTheThingsTshirtRed;
+    private final By redTShirtBtn =
+            By.id("add-to-cart-test.allthethings()-t-shirt-(red)");
 
-    @FindBy(css = "[data-test='product-sort-container']")
-    WebElement sortDropdown;
+    private final By sortDropdown =
+            By.cssSelector("[data-test='product-sort-container']");
 
-    // Cart
-    @FindBy(xpath = "//a[@class='shopping_cart_link']/span")
-    WebElement shoppingCartLink;
+    /* =========================
+       CART LOCATORS
+       ========================= */
 
-    @FindBy(id = "checkout")
-    WebElement checkOutButton;
+    private final By shoppingCartLink =
+            By.cssSelector(".shopping_cart_link");
 
-    // Checkout Information
-    @FindBy(xpath = "//input[@placeholder='First Name']")
-    WebElement firstNameBillingAddressInputTextField;
+    private final By checkoutButton =
+            By.id("checkout");
 
-    @FindBy(xpath = "//input[@placeholder='Last Name']")
-    WebElement lastNameBillingAddressInputTextField;
+    /* =========================
+       CHECKOUT LOCATORS
+       ========================= */
 
-    @FindBy(xpath = "//input[@placeholder='Zip/Postal Code']")
-    WebElement zip_PostalCodeInputTextField;
+    private final By firstNameTextBox =
+            By.id("first-name");
 
-    @FindBy(id = "continue")
-    WebElement continueButton;
+    private final By lastNameTextBox =
+            By.id("last-name");
 
-    @FindBy(id = "finish")
-    WebElement finishButton;
+    private final By zipCodeTextBox =
+            By.id("postal-code");
 
-    @FindBy(xpath = "//*[text()='Error: Last Name is required']")
-    WebElement lastNameRequiredErrorMsg;
+    private final By continueButton =
+            By.id("continue");
 
-    @FindBy(xpath = "//div[@id='checkout_complete_container']//h2")
-    WebElement successMessage;
+    private final By finishButton =
+            By.id("finish");
 
-    /**
-     * Add products to cart and sort products.
-     */
+    private final By lastNameRequiredMsg =
+            By.xpath("//*[text()='Error: Last Name is required']");
+
+    private final By successMessage =
+            By.cssSelector("#checkout_complete_container h2");
+
+    /* =========================
+       PAGE ACTIONS
+       ========================= */
+
     public void addProductsToCart() {
 
-        click(addToCartSauceLabsBackpack);
-        click(addToCartSauceLabsBikeLight);
-        click(addToCartSauceLabsBolt_t_Shirt);
-        click(addToCartSauceLabsTestAllTheThingsTshirtRed);
+        click(backpackBtn);
+        click(bikeLightBtn);
+        click(boltTShirtBtn);
+        click(redTShirtBtn);
 
-        Select select = new Select(sortDropdown);
-
-        select.selectByVisibleText("Name (Z to A)");
-        select.selectByVisibleText("Name (A to Z)");
-
+        selectByText(sortDropdown, "Name (Z to A)");
+        selectByText(sortDropdown, "Name (A to Z)");
     }
 
-    /**
-     * Navigate to Cart Page.
-     */
     public void navigateToCartPage() {
-
         click(shoppingCartLink);
-
     }
 
-    /**
-     * Navigate to Checkout Page.
-     */
     public void navigateToCheckoutPage() {
-
-        click(checkOutButton);
-
+        click(checkoutButton);
     }
 
-    /**
-     * Complete checkout successfully.
-     */
     public void enterCheckoutInfoAndFinish() {
 
         click(shoppingCartLink);
-        click(checkOutButton);
+        click(checkoutButton);
 
-        enterText(firstNameBillingAddressInputTextField, firstname);
-        enterText(lastNameBillingAddressInputTextField, lastname);
-        enterText(zip_PostalCodeInputTextField, zipCode);
+        enterText(firstNameTextBox, firstName);
+        enterText(lastNameTextBox, lastName);
+        enterText(zipCodeTextBox, zipCode);
 
         click(continueButton);
         click(finishButton);
-
     }
 
-    /**
-     * Verify Last Name validation message.
-     */
     public void enterCheckoutInfoAndVerifyLastNameErrorMsg() {
 
         click(shoppingCartLink);
-        click(checkOutButton);
+        click(checkoutButton);
 
-        enterText(firstNameBillingAddressInputTextField, firstname);
-
-        // Intentionally passing blank value to verify validation
-        enterText(lastNameBillingAddressInputTextField,"test");
-
-        enterText(zip_PostalCodeInputTextField, zipCode);
+        enterText(firstNameTextBox, firstName);
+        enterText(lastNameTextBox, "");
+        enterText(zipCodeTextBox, zipCode);
 
         click(continueButton);
-
-//        Assert.assertEquals(
-//                getText(lastNameRequiredErrorMsg),
-//                "Error: Last Name is required"
-
-
     }
 
-    /**
-     * Verify order completion message.
-     */
-    public String verifySuccessMessage() {
-
-        return
-                getText(successMessage);
-
-
-
-
-
+    public String getLastNameRequiredMessage() {
+        return getText(lastNameRequiredMsg);
     }
 
+    public String getSuccessMessage() {
+        return getText(successMessage);
+    }
 }
