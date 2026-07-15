@@ -1,5 +1,6 @@
 package pages;
 
+import org.apache.logging.log4j.core.util.Assert;
 import org.openqa.selenium.By;
 import utilities.BaseUtils;
 import utilities.ConfigReader;
@@ -17,7 +18,7 @@ public class LoginPage extends BasePage {
     private final By loginBtn = By.id("login-button");
     private final By menuBtn = By.xpath("//*[text()='Open Menu']");
     private final By logoutLink = By.xpath("//*[text()='Logout']");
-
+    private final By userLockedOutErrorMessage = By.xpath("//*[text()='Epic sadface: Sorry, this user has been locked out.']");
     /**
      * Opens application
      */
@@ -48,5 +49,15 @@ public class LoginPage extends BasePage {
         element.click(menuBtn);
         element.click(logoutLink);
     }
+
+    /**
+            * verify User Locked Out Error Message
+     */
+    public String verifyUserLockedOutErrorMessage() {
+        String msge= element.getText(userLockedOutErrorMessage);
+     return msge;
+
+    }
+
 
 }
