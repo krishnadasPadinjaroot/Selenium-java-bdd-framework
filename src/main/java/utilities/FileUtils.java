@@ -12,9 +12,9 @@ import java.time.Duration;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-    public final class FileUtil {
+    public final class FileUtils extends BaseUtils {
 
-        private FileUtil() {
+        private FileUtils() {
             // Prevent instantiation
         }
 

@@ -1,8 +1,8 @@
 package pages;
 
-import utilities.CommonActions;
+import utilities.BaseUtils;
 
-public class CartPage extends CommonActions {
+public class CartPage extends BaseUtils {
 
 
 

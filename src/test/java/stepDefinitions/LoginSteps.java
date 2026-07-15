@@ -27,7 +27,7 @@ public class LoginSteps {
     @And("user logOut")
     public void userLogOut() {
 
-        loginPage.userLogOut();
+        loginPage.userLog0ut();
 
     }
 

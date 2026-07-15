@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import org.testng.Assert;
 import pages.ProductsPage;
 
+
 public class ProductsPageSteps {
 
 
@@ -42,9 +43,8 @@ public class ProductsPageSteps {
     public void enterCheckoutInfoAndVerifyLastNameErrorMsg() {
 
         productsPage.enterCheckoutInfoAndVerifyLastNameErrorMsg();
-//        Assert.assertEquals(getText(lastNameRequiredErrorMsg),
-//                "Error: Last Name is required"
-//        );
+        Assert.assertEquals(productsPage.getLastNameRequiredErrorMessage(),
+                "Error: Last Name is required" );
 
     }
 

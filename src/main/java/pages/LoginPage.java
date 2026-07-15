@@ -1,10 +1,10 @@
 package pages;
 
 import org.openqa.selenium.By;
-import utilities.CommonActions;
+import utilities.BaseUtils;
 import utilities.ConfigReader;
 
-public class LoginPage extends CommonActions {
+public class LoginPage extends BasePage {
 
     // Read values from config.properties
     private final String url = ConfigReader.getProperty("url");
@@ -22,16 +22,16 @@ public class LoginPage extends CommonActions {
      * Opens application
      */
     public void openSite() {
-        navigateTo(url);
+        navigation.navigateTo(url);
     }
 
     /**
      * Login using parameters
      */
     public void login(String userName, String passWord) {
-        enterText(usernameTxt, userName);
-        enterText(passwordTxt, passWord);
-        click(loginBtn);
+        element.enterText(usernameTxt, userName);
+        element.enterText(passwordTxt, passWord);
+        element.click(loginBtn);
     }
 
     /**
@@ -45,8 +45,8 @@ public class LoginPage extends CommonActions {
      * Logout
      */
     public void userLog0ut() {
-        click(menuBtn);
-        click(logoutLink);
+        element.click(menuBtn);
+        element.click(logoutLink);
     }
 
 }

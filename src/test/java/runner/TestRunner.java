@@ -8,7 +8,7 @@ import io.cucumber.testng.CucumberOptions;
         glue = {"hooks", "stepDefinitions"},
         plugin = {
                 "pretty",
-                "html:target/cucumber-report.html",
+                "html:target/cucumber-report.html",     
                 "json:target/cucumber.json",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
         },

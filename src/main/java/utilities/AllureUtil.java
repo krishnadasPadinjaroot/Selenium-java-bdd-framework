@@ -4,7 +4,7 @@ import io.qameta.allure.Allure;
 
 import java.io.ByteArrayInputStream;
 
-public class AllureUtil {
+public class AllureUtil extends BaseUtils {
 
     /**
      * Attaches a screenshot to the Allure Report.

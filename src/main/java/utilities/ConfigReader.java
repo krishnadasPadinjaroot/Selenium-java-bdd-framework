@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ConfigReader {
+public class ConfigReader extends BaseUtils {
 
     private static final Properties properties = new Properties();
 

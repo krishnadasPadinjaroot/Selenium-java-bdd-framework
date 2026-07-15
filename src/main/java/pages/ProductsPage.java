@@ -1,10 +1,10 @@
 package pages;
 
 import org.openqa.selenium.By;
-import utilities.CommonActions;
+import utilities.BaseUtils;
 import utilities.ConfigReader;
 
-public class ProductsPage extends CommonActions {
+public class ProductsPage extends BasePage {
 
     private final String firstName = ConfigReader.getProperty("firstname");
     private final String lastName = ConfigReader.getProperty("lastname");
@@ -63,6 +63,8 @@ public class ProductsPage extends CommonActions {
 
     private final By successMessage =
             By.cssSelector("#checkout_complete_container h2");
+    private final By lastNameRequiredErrorMsg =
+            By.xpath("//h3[contains(text(),'Last Name is required')]");
 
     /* =========================
        PAGE ACTIONS
@@ -70,53 +72,51 @@ public class ProductsPage extends CommonActions {
 
     public void addProductsToCart() {
 
-        click(backpackBtn);
-        click(bikeLightBtn);
-        click(boltTShirtBtn);
-        click(redTShirtBtn);
+        element.click(backpackBtn);
+        element.click(bikeLightBtn);
+        element.click(boltTShirtBtn);
+        element.click(redTShirtBtn);
 
-        selectByText(sortDropdown, "Name (Z to A)");
-        selectByText(sortDropdown, "Name (A to Z)");
+        dropdown.selectByText(sortDropdown, "Name (Z to A)");
+        dropdown.selectByText(sortDropdown, "Name (A to Z)");
     }
 
     public void navigateToCartPage() {
-        click(shoppingCartLink);
+        element.click(shoppingCartLink);
     }
 
     public void navigateToCheckoutPage() {
-        click(checkoutButton);
+        element.click(checkoutButton);
     }
 
     public void enterCheckoutInfoAndFinish() {
 
-        click(shoppingCartLink);
-        click(checkoutButton);
+        element.click(shoppingCartLink);
+        element.click(checkoutButton);
 
-        enterText(firstNameTextBox, firstName);
-        enterText(lastNameTextBox, lastName);
-        enterText(zipCodeTextBox, zipCode);
+        element.enterText(firstNameTextBox, firstName);
+        element.enterText(lastNameTextBox, lastName);
+        element.enterText(zipCodeTextBox, zipCode);
 
-        click(continueButton);
-        click(finishButton);
+        element.click(continueButton);
+        element.click(finishButton);
     }
 
     public void enterCheckoutInfoAndVerifyLastNameErrorMsg() {
 
-        click(shoppingCartLink);
-        click(checkoutButton);
+        element.click(shoppingCartLink);
+        element.click(checkoutButton);
 
-        enterText(firstNameTextBox, firstName);
-        enterText(lastNameTextBox, "");
-        enterText(zipCodeTextBox, zipCode);
-
-        click(continueButton);
-    }
-
-    public String getLastNameRequiredMessage() {
-        return getText(lastNameRequiredMsg);
+        element.enterText(firstNameTextBox, firstName);
+        element.enterText(lastNameTextBox, "");
+       element. enterText(zipCodeTextBox, zipCode);
+        element.click(continueButton);
     }
 
     public String getSuccessMessage() {
-        return getText(successMessage);
+        return element.getText(successMessage);
+    }
+    public String getLastNameRequiredErrorMessage() {
+        return element.getText(lastNameRequiredErrorMsg);
     }
 }

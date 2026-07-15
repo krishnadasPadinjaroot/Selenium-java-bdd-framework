@@ -1,9 +1,9 @@
 package pages;
 
 import org.openqa.selenium.By;
-import utilities.CommonActions;
+import utilities.BaseUtils;
 
-public class AvailableExamplesPage extends CommonActions {
+public class AvailableExamplesPage extends BasePage  {
 
     /* =========================
        LOCATORS
@@ -22,13 +22,14 @@ public class AvailableExamplesPage extends CommonActions {
      * Click on A/B Testing link
      */
     public void clickAorBTestingLink() {
-        click(lnkABTesting);
+      element.click(lnkABTesting);
     }
 
     /**
      * Get the variation message
      */
     public String getTextAorBTestVariationText() {
-        return getText(txtVariationMessage);
+
+        return element.getText(txtVariationMessage);
     }
 }
